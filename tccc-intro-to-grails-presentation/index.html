@@ -1,0 +1,271 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+
+    <title>reveal.js - The HTML Presentation Framework</title>
+
+    <meta name="description" content="A framework for easily creating beautiful presentations using HTML">
+    <meta name="author" content="Hakim El Hattab">
+
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <link rel="stylesheet" href="css/reveal.min.css">
+    <link rel="stylesheet" href="css/theme/simple.css" id="theme">
+
+    <!-- For syntax highlighting -->
+    <link rel="stylesheet" href="lib/css/zenburn.css">
+
+    <!-- If the query includes 'print-pdf', use the PDF print sheet -->
+    <script>
+        document.write('<link rel="stylesheet" href="css/print/' + ( window.location.search.match(/print-pdf/gi) ? 'pdf' : 'paper' ) + '.css" type="text/css" media="print">');
+    </script>
+
+    <!--[if lt IE 9]>
+    <script src="lib/js/html5shiv.js"></script>
+    <![endif]-->
+</head>
+
+<body>
+
+<div class="reveal">
+
+    <!-- Any section element inside of this container is displayed as a slide -->
+    <div class="slides">
+
+        <section>
+            <h1>Introduction to Grails</h1>
+
+            <p>Kyle Boon</p>
+        </section>
+        <section>
+            <h2>Kyle Boon</h2>
+                    <span style="float: left;">
+                    <div style="text-align: right;">Lead Developer @ Bloomhealth</div>
+                    <div style="text-align: right;">kyle.f.boon@gmail.com</div>
+                    <div style="text-align: right;">@kyleboon</div>
+                    <div style="text-align: right;">http://www.about.me/kyleboon</div>
+                    </span>
+                    <span style="float: right;">
+                    <img src="http://i.imgur.com/MSnknm0.jpg"
+                         style="line-height: 1.2em;font-size: 36.0px;letter-spacing: -0.02em;">
+                    </span>
+        </section>
+
+        <section>
+            <h2>What is Grails?</h2>
+            <blockquote>
+                Grails is an Open Source, full stack, web application framework for the JVM. It takes advantage of the
+                Groovy programming language and convention over configuration to provide a productive and stream-lined
+                development experience.
+            </blockquote>
+        </section>
+
+        <section>
+            <h2>Rapid Development</h2>
+            <ul>
+                <li>Inspired by Ruby on Rails</li>
+                <li>Convention over configuration</li>
+                <li>Plugin system</li>
+                <li>Build System</li>
+            </ul>
+        </section>
+
+
+        <section>
+            <h2>Groovy</h2>
+			<pre><code contenteditable>
+def withNewTransaction(Closure closure) {
+    def transaction = sessionFactory.currentSession.beginTransaction()
+    try {
+        def result = closure.call()
+        transaction.commit()
+    } catch (exception) {
+        log.error 'Rolling back.', exception
+        transaction.rollback()
+        throw all
+    }
+
+    result
+}
+            </code></pre>
+        </section>
+
+        <section>
+            <h2>Spock Tests</h2>
+			<pre><code contenteditable>
+class HelloSpock extends Specification {
+    def "length of Spock's and his friends' names"() {
+        expect: 'the size to be the given length'
+        name.size() == length
+
+        where: 'the names are'
+        name     | length
+        "Spock"  | 5
+        "Kirk"   | 4
+        "Scotty" | 6
+    }
+}
+            </code></pre>
+        </section>
+        <section>
+            <h2>Domain Class</h2>
+			<pre><code contenteditable>
+class Account {
+    Customer owner
+    AccountType type
+    LocalDate openDate
+    BigDecimal balance
+
+    Date dateCreated
+    Date lastUpdated
+
+    static constraints = {
+        owner(nullable: false)
+        type(nullable: false)
+        openDate(nullable: false)
+        balance(nullable: false)
+    }
+}
+            </code></pre>
+        </section>
+        <section>
+            <h2>GORM</h2>
+			<pre><code contenteditable>
+def account = new Account()
+account.save()
+
+Account.findById(id)
+Account.findAllByType(type)
+Account.findAllByOwner(owner)
+            </code></pre>
+        </section>
+
+        <section>
+            <h2>Controller</h2>
+			<pre><code contenteditable>
+class BookController {
+    def bookService
+    def show() {
+        [book: bookService.getBook(params.id)]
+    }
+}
+            </code></pre>
+        </section>
+
+        <section>
+            <h2>Services</h2>
+            <ul>
+                <li>Stateless</li>
+                <li>Transactional</li>
+                <li>Dependency Injection via Spring</li>
+            </ul>
+			<pre><code contenteditable>class BookService {
+    def listBooks() {
+        Book.list()
+    }
+
+    def getBook(def id) {
+        Book.get(id)
+    }
+
+    def updateBook() {
+        // important business logic
+    }
+
+    def deleteBook() {
+        // important business logic
+    }
+}
+            </code></pre>
+        </section>
+
+        <section>
+            <h2>Community</h2>
+            <ul>
+                <li><a href='www.grails.org'>www.grails.org</a></li>
+                <li><a href='http://groovy.mn/'>Groovy Users of Minnesota</a></li>
+                <li><a href='http://gr8conf.us/'>gr8conf US</a></li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>Job Opportunities</h2>
+
+            <p>There are a lot of companies in the twin cities using grails on a daily basis.</p>
+            <ul>
+                <li><a href='www.gobloomhealth.com'>BloomHealth</a></li>
+                <li><a href='http://www.objectpartners.com/'>Object Partners</a></li>
+                <li>Thompson Reuters, Target, and SmartThings</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>References</h2>
+
+            <p></p>
+            <ul>
+                <li><a href='www.grails.org'>BloomHealth</a></li>
+                <li><a href='http://gr8conf.us/'>Object Partners</a></li>
+                <li><a href='http://gr8conf.us/'>Thompson Reuters, Target, and SmartThings</a></li>
+            </ul>
+        </section>
+
+
+        <section>
+            <h1>Lets look at some code!</h1>
+        </section>
+
+    </div>
+
+</div>
+
+<script src="lib/js/head.min.js"></script>
+<script src="js/reveal.min.js"></script>
+
+<script>
+
+    // Full list of configuration options available here:
+    // https://github.com/hakimel/reveal.js#configuration
+    Reveal.initialize({
+        controls: true,
+        progress: true,
+        history: true,
+        center: true,
+
+        theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+        transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
+
+        // Optional libraries used to extend on reveal.js
+        dependencies: [
+            { src: 'lib/js/classList.js', condition: function () {
+                return !document.body.classList;
+            } },
+            { src: 'plugin/markdown/showdown.js', condition: function () {
+                return !!document.querySelector('[data-markdown]');
+            } },
+            { src: 'plugin/markdown/markdown.js', condition: function () {
+                return !!document.querySelector('[data-markdown]');
+            } },
+            { src: 'plugin/highlight/highlight.js', async: true, callback: function () {
+                hljs.initHighlightingOnLoad();
+            } },
+            { src: 'plugin/zoom-js/zoom.js', async: true, condition: function () {
+                return !!document.body.classList;
+            } },
+            { src: 'plugin/notes/notes.js', async: true, condition: function () {
+                return !!document.body.classList;
+            } }
+            // { src: 'plugin/search/search.js', async: true, condition: function() { return !!document.body.classList; } }
+            // { src: 'plugin/remotes/remotes.js', async: true, condition: function() { return !!document.body.classList; } }
+        ]
+    });
+
+</script>
+
+</body>
+</html>
